@@ -29,39 +29,75 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  
+  //methods and variables
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Widget buildSentence(String text, {bool bold}) {
+
+    if(bold == null) {
+      bold = false;
+    }
+
+    return new Container(
+
+        //Container style
+
+        child: new Text(
+          text,
+          style: TextStyle(
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal
+          )
+        ),
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return MaterialApp(
+        title: "Meu primeiro Flutter App",
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+              appBar: AppBar(
+                  title: Text("Meu Primeiro App Bar"),
+                  bottom: TabBar(
+                    tabs: [
+                      Tab(icon: Icon(Icons.announcement)),
+                      Tab(icon: Icon(Icons.cake)),
+                      Tab(icon: Icon(Icons.cloud))
+                    ],
+                  )),
+              body: TabBarView(children: [
+                Center(child: selfPresentationPage()),
+                Center(child: projectDescriptionPage()),
+                Center(child: Text("Filho 3")),
+              ])),
+        ));
+  }
+
+  Widget selfPresentationPage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+
+        children: [
+          new Row(
+            children: [
+              buildSentence("Nome:", bold: true),
+              buildSentence("Matheus Furlan")
+            ],
+          )
+        ],
+      )
     );
+
+  }
+
+  Widget projectDescriptionPage() {
+
+  }
+
+  Widget randomPage() {
+
   }
 }
